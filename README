@@ -26,3 +26,13 @@
           ~~~   ~~~   ~~~   ~~~
 
 
+You son of a b----! Sun koodis aiheuttaa virheen mul 
+ku sul vanha versio lovest love.graphics.setMode() poistettu 0.9.0.
+Voitas kattoo, et kaikki versiot yms. on samoi.
+
+Siin config file
+http://love2d.org/wiki/Config_Files
+
+Sit muuten tost scaleemisest ja resizest
+http://love2d.org/forums/viewtopic.php?f=4&t=48971
+testaillu omas love harjottelus se toimii aika hyvin voin huome töiden jälkeen lisäillä noit.
