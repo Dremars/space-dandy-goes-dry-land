@@ -1,3 +1,8 @@
+require "keys"
+
+
+RENDER_SCALE = {}
+DIMENSIONS = {}
 grid = {}
 
 function foreach(f, t)
@@ -7,13 +12,12 @@ function foreach(f, t)
 end
 
 function calculate_grid()
-	screen_width = love.graphics.getWidth()
-	screen_height = love.graphics.getHeight()
-	mid_line = { {screen_width / 2, 0}, {screen_width / 2, screen_height} }
-	mid_to_right = { {screen_width / 2, screen_height / 2,}, {screen_width, screen_height / 2} }
+	mid_line = { {DIMENSIONS.w / 1.8, 0}, {DIMENSIONS.w / 1.8, DIMENSIONS.h} }
+	mid_to_right = { {DIMENSIONS.w / 1.8, DIMENSIONS.h / 2,}, {DIMENSIONS.w, DIMENSIONS.h / 2} }
 	return {mid_line, mid_to_right }
 end
 
+--[[
 function window_size(n)
 	love.graphics.setMode(love.graphics.getWidth() + n, love.graphics.getHeight() + n, false, true, 0)
 end
@@ -24,37 +28,36 @@ end
 function dec_window_size()
 	window_size(-200)
 end
+--]]
 
-
-
-function love.load()
-	love.graphics.setMode(600, 400, false, true, 0)
-	grid = calculate_grid()
-end
-
-function love.update(dt)
-
+function calc_scale()
+	RENDER_SCALE.x = love.graphics.getWidth()/DIMENSIONS.w
+	RENDER_SCALE.y = love.graphics.getHeight()/DIMENSIONS.h
 end
 
 function draw_line(t)
 	love.graphics.line(t[1][1],t[1][2],t[2][1],t[2][2])
 end
 
-function love.draw()
-	love.graphics.print("Brace yourselves, winter is coming.", 250, 40)
-	foreach(draw_line, grid)
+function love.load()
+	-- get window dimensions
+	DIMENSIONS.w = love.graphics.getWidth() 
+	DIMENSIONS.h = love.graphics.getHeight()
+	
+	grid = calculate_grid()
+	love.graphics.setBackgroundColor(3,86,197)
 end
 
-function love.keypressed(k)
-	if k == 'escape' then
-		love.event.quit()
+function love.update(dt)
+	-- check if window resized and calculate scale
+	if (love.graphics.getHeight ~= DIMENSIONS.h) or (love.graphics.getWidth ~= DIMENSIONS.w) then
+		calc_scale()
 	end
-	if k == '+' then
-		inc_window_size()
-		grid = calculate_grid()
-	end
-	if k == '-' then
-		dec_window_size()
-		grid = calculate_grid()
-	end
+end
+
+function love.draw()
+	love.graphics.scale(RENDER_SCALE.x,RENDER_SCALE.y) -- scale the game
+	
+	love.graphics.print("Brace yourselves, winter is coming?", 250, 40)
+	foreach(draw_line, grid)
 end
