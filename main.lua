@@ -1,34 +1,16 @@
+require "helpers"
 require "keys"
-
+require "ship"
 
 RENDER_SCALE = {}
 DIMENSIONS = {}
 grid = {}
-
-function foreach(f, t)
-	for k,v in pairs(t) do
-		f(v)
-	end
-end
 
 function calculate_grid()
 	mid_line = { {DIMENSIONS.w / 1.8, 0}, {DIMENSIONS.w / 1.8, DIMENSIONS.h} }
 	mid_to_right = { {DIMENSIONS.w / 1.8, DIMENSIONS.h / 2,}, {DIMENSIONS.w, DIMENSIONS.h / 2} }
 	return {mid_line, mid_to_right }
 end
-
---[[
-function window_size(n)
-	love.graphics.setMode(love.graphics.getWidth() + n, love.graphics.getHeight() + n, false, true, 0)
-end
-
-function inc_window_size()
-	window_size(200)
-end
-function dec_window_size()
-	window_size(-200)
-end
---]]
 
 function calc_scale()
 	RENDER_SCALE.x = love.graphics.getWidth()/DIMENSIONS.w
@@ -46,6 +28,7 @@ function love.load()
 	
 	grid = calculate_grid()
 	love.graphics.setBackgroundColor(3,86,197)
+	Ship.load()
 end
 
 function love.update(dt)
@@ -57,7 +40,6 @@ end
 
 function love.draw()
 	love.graphics.scale(RENDER_SCALE.x,RENDER_SCALE.y) -- scale the game
-	
-	love.graphics.print("Brace yourselves, winter is coming?", 250, 40)
 	foreach(draw_line, grid)
+	Ship.draw(grid)
 end
