@@ -1,4 +1,4 @@
-Ship = {}
+Ship = {canvas = nil, tilesets = nil, boat = {{1}} }
 
 function Ship:new(o)
 	o = o or {}
@@ -8,9 +8,26 @@ function Ship:new(o)
 end
 
 function Ship:draw()
-	love.graphics.print("Hello from Ship!", 50, 50)
+	love.graphics.setCanvas(self.canvas)
+		for i=1, #self.boat do
+			for j=1, #self.boat[i] do
+				if self.boat[i][j] == 1 then
+					love.graphics.draw(self.tilesets[1],i*50,j*50)
+				end
+			end
+		end
+	love.graphics.setCanvas()
+	return self.canvas
 end
 
 function Ship:update()
 
+end
+
+function Ship:set_tilesets(t)
+	self.tilesets = t
+end
+
+function Ship:setboat(t)
+	self.boat = t
 end
