@@ -1,0 +1,2 @@
+Enemyship = Ship:new()
+

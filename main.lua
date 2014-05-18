@@ -1,6 +1,8 @@
 require "helpers"
 require "keys"
-require "ship"
+require "Ships/ship"
+require "Ships/playership"
+require "Ships/enemyship"
 
 RENDER_SCALE = {}
 DIMENSIONS = {}
@@ -28,7 +30,8 @@ function love.load()
 	
 	grid = calculate_grid()
 	love.graphics.setBackgroundColor(3,86,197)
-	Ship.load()
+	playership = Playership:new()
+	enemyship = Enemyship:new()
 end
 
 function love.update(dt)
@@ -41,5 +44,5 @@ end
 function love.draw()
 	love.graphics.scale(RENDER_SCALE.x,RENDER_SCALE.y) -- scale the game
 	foreach(draw_line, grid)
-	Ship.draw(grid)
+	playership:draw()
 end

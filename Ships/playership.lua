@@ -1,0 +1,2 @@
+Playership = Ship:new()
+
