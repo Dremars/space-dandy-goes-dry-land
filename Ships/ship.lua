@@ -24,10 +24,3 @@ function Ship:update()
 
 end
 
-function Ship:set_tilesets(t)
-	self.tilesets = t
-end
-
-function Ship:setboat(t)
-	self.boat = t
-end
