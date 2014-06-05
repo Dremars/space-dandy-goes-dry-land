@@ -11,6 +11,8 @@ function love.load()
 	tile = love.graphics.newImage("tiles/panel.png")
 	playership:load({tile})
 	enemyship:load({tile})
+	playerShipCanvas = playership:draw()
+	enemyShipCanvas = enemyship:draw()
 end
 
 function love.update(dt)
@@ -19,7 +21,7 @@ end
 function love.draw()
 	love.graphics.line(640,0,640,720)
 	love.graphics.line(640,360,1280,360)
-	love.graphics.draw(playership:draw())
-	love.graphics.draw(enemyship:draw(),640,360)
+	love.graphics.draw(playerShipCanvas)
+	love.graphics.draw(enemyShipCanvas,640,360)
 	love.graphics.print("FPS: "..love.timer.getFPS(), 10, 20)
 end
